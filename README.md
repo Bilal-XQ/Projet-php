@@ -35,7 +35,15 @@ docker compose up -d
 
 Docker va automatiquement :
 1. Télécharger et configurer l'environnement PHP 8.3 & Nginx.
-2. Initialiser la base de données MySQL avec les tables et les données de test.
+2. Initialiser la base de données MySQL avec les tables et les données de test complètes (modules, professeurs, Bilal, notes, assiduité...).
+
+> 💡 **Si vous aviez déjà lancé le projet auparavant :**
+> Docker conserve l'ancienne base dans son volume. Pour recharger la toute nouvelle base de données complète, exécutez simplement :
+> ```bash
+> docker compose down -v
+> docker compose up -d
+> ```
+> *(L'option `-v` supprime l'ancien volume pour charger le nouveau `schema.sql`).*
 
 ---
 
