@@ -31,11 +31,23 @@ class Database {
                 PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci",
             ];
 
-            try {
-                self::$instance = new PDO($dsn, $user, $pass, $options);
-            } catch (PDOException $e) {
-                error_log("Database connection error: " . $e->getMessage());
-                throw $e;
+            $maxRetries = 6;
+            $attempts = 0;
+
+            while (true) {
+                try {
+                    self::$instance = new PDO($dsn, $user, $pass, $options);
+                    break;
+                } catch (PDOException $e) {
+                    $attempts++;
+                    // If connection was refused (code 2002) during MySQL startup, wait 1.5s and retry
+                    if ($attempts < $maxRetries && (str_contains($e->getMessage(), '2002') || str_contains($e->getMessage(), 'Connection refused'))) {
+                        usleep(1500000); // 1.5 seconds
+                        continue;
+                    }
+                    error_log("Database connection error: " . $e->getMessage());
+                    throw $e;
+                }
             }
         }
 
