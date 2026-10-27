@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 use App\Utils\Icon;
 
-$primaryCode = $primaryModuleStats['module_code'] ?? 'DEV-WEB';
-$primaryPassRate = number_format((float)($primaryModuleStats['tauxReussite'] ?? 0.0), 1);
-$primaryAvgFinal = number_format((float)($primaryModuleStats['moyenneFinale'] ?? 0.0), 2);
-
 // Calcul du total des étudiants supervisés
 $totalStudents = 0;
 foreach ($modules as $m) {
@@ -152,33 +148,7 @@ foreach ($modules as $m) {
     <?php endif; ?>
   </div>
 
-  <!-- 4. Bloc Graphique & Indicateurs Statistiques -->
-  <?php if ($primaryModuleStats): ?>
-    <div class="card" style="margin-bottom: 2rem;">
-      <div class="card-header">
-        <div>
-          <span class="card-title">
-            <?= Icon::get('award', 18) ?>
-            <span>Distribution des Résultats Académiques — Module <?= htmlspecialchars($primaryCode) ?></span>
-          </span>
-          <span class="card-desc" style="display: block; margin-top: 0.25rem;">
-            Répartition des notes pour <?= (int)$primaryModuleStats['totalEvalues'] ?> étudiant(s) évalué(s) en Session Normale
-          </span>
-        </div>
-        <div style="display: flex; gap: 0.75rem; align-items: center;">
-          <span class="badge badge-success">
-            Réussite : <?= $primaryPassRate ?> %
-          </span>
-          <span class="badge badge-neutral" style="font-family: ui-monospace, monospace;">
-            Moyenne : <?= $primaryAvgFinal ?> / 20
-          </span>
-        </div>
-      </div>
-      <div style="padding: 1.25rem; height: 260px; position: relative;">
-        <canvas id="teacherModuleChart"></canvas>
-      </div>
-    </div>
-  <?php endif; ?>
+
 
   <!-- 5. Séances Récentes & Communications Pédagogiques -->
   <div class="grid grid-cols-2" style="gap: 1.5rem;">
@@ -252,83 +222,3 @@ foreach ($modules as $m) {
   </div>
 </div>
 
-<?php if ($primaryModuleStats): ?>
-<script>
-function renderTeacherChart() {
-  const ctx = document.getElementById('teacherModuleChart');
-  if (!ctx || typeof Chart === 'undefined') return;
-  if (Chart.getChart(ctx)) return;
-
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  const textColor = isDark ? '#a1a1aa' : '#71717a';
-  const gridColor = isDark ? '#27272a' : '#e4e4e7';
-
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['[0 - 8[ Non Valide', '[8 - 10[ Rattrapage', '[10 - 12[ Passable', '[12 - 14[ Assez Bien', '[14 - 16[ Bien', '[16 - 20] Tres Bien'],
-        datasets: [{
-          label: 'Effectif Etudiants',
-        data: [
-          <?= (int)($primaryModuleStats['tranche_0_8'] ?? 0) ?>,
-          <?= (int)($primaryModuleStats['tranche_8_10'] ?? 0) ?>,
-          <?= (int)($primaryModuleStats['tranche_10_12'] ?? 0) ?>,
-          <?= (int)($primaryModuleStats['tranche_12_14'] ?? 0) ?>,
-          <?= (int)($primaryModuleStats['tranche_14_16'] ?? 0) ?>,
-          <?= (int)($primaryModuleStats['tranche_16_20'] ?? 0) ?>
-        ],
-        backgroundColor: [
-          'rgba(239, 68, 68, 0.65)',
-          'rgba(245, 158, 11, 0.65)',
-          'rgba(59, 130, 246, 0.65)',
-          'rgba(16, 185, 129, 0.65)',
-          'rgba(16, 185, 129, 0.8)',
-          'rgba(16, 185, 129, 0.95)'
-        ],
-        borderColor: [
-          '#ef4444',
-          '#f59e0b',
-          '#3b82f6',
-          '#10b981',
-          '#10b981',
-          '#10b981'
-        ],
-        borderWidth: 1,
-        borderRadius: 4
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: isDark ? '#18181b' : '#ffffff',
-          titleColor: isDark ? '#f4f4f5' : '#09090b',
-          bodyColor: isDark ? '#a1a1aa' : '#71717a',
-          borderColor: isDark ? '#27272a' : '#e4e4e7',
-          borderWidth: 1
-        }
-      },
-      scales: {
-        x: {
-          grid: { color: gridColor },
-          ticks: { color: textColor, font: { size: 11 } }
-        },
-        y: {
-          beginAtZero: true,
-          grid: { color: gridColor },
-          ticks: { stepSize: 1, color: textColor, font: { size: 11 } }
-        }
-      }
-    }
-  });
-}
-
-document.addEventListener('DOMContentLoaded', renderTeacherChart);
-window.addEventListener('load', renderTeacherChart);
-renderTeacherChart();
-setTimeout(renderTeacherChart, 150);
-setTimeout(renderTeacherChart, 500);
-</script>
-<?php endif; ?>

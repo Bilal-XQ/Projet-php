@@ -51,7 +51,7 @@ CREATE TABLE `absences` (
 
 LOCK TABLES `absences` WRITE;
 /*!40000 ALTER TABLE `absences` DISABLE KEYS */;
-INSERT INTO `absences` VALUES (4,11,5,'PRESENT',0,NULL),(5,12,5,'PRESENT',0,NULL),(6,13,5,'PRESENT',0,NULL),(7,11,6,'PRESENT',0,NULL),(8,12,6,'ABSENT',0,'Panne de transport en commun'),(9,13,6,'PRESENT',0,NULL),(10,11,7,'PRESENT',0,NULL),(11,12,7,'PRESENT',0,NULL),(12,13,7,'ABSENT',1,'Certificat médical validé par la scolarité'),(13,11,8,'PRESENT',0,NULL),(14,12,8,'PRESENT',0,NULL),(15,13,8,'PRESENT',0,NULL),(16,11,9,'PRESENT',0,NULL),(17,12,9,'PRESENT',0,NULL),(18,13,9,'PRESENT',0,NULL),(19,11,10,'PRESENT',0,NULL),(20,12,10,'PRESENT',0,NULL),(21,13,10,'PRESENT',0,NULL),(22,11,11,'PRESENT',0,NULL),(23,12,11,'PRESENT',0,NULL),(24,13,11,'PRESENT',0,NULL),(25,11,12,'PRESENT',0,NULL),(26,12,12,'PRESENT',0,NULL),(27,13,12,'PRESENT',0,NULL),(28,11,13,'PRESENT',0,NULL),(29,12,13,'PRESENT',0,NULL),(30,13,13,'PRESENT',0,NULL),(31,11,14,'PRESENT',0,NULL),(32,12,14,'PRESENT',0,NULL),(33,13,14,'PRESENT',0,NULL),(34,11,15,'PRESENT',0,NULL),(35,12,15,'PRESENT',0,NULL),(36,13,15,'PRESENT',0,NULL),(37,11,16,'PRESENT',0,NULL),(38,12,16,'PRESENT',0,NULL),(39,13,16,'PRESENT',0,NULL),(40,11,17,'PRESENT',0,NULL),(41,12,17,'PRESENT',0,NULL),(42,13,17,'PRESENT',0,NULL),(43,11,18,'PRESENT',0,NULL),(44,12,18,'PRESENT',0,NULL),(45,13,18,'PRESENT',0,NULL),(46,11,19,'PRESENT',0,NULL),(47,12,19,'PRESENT',0,NULL),(48,13,19,'PRESENT',0,NULL);
+INSERT INTO `absences` VALUES (4,11,5,'PRESENT',0,NULL),(5,12,5,'PRESENT',0,NULL),(6,13,5,'PRESENT',0,NULL),(7,11,6,'PRESENT',0,NULL),(8,12,6,'ABSENT',0,'Retard transport en commun'),(9,13,6,'PRESENT',0,NULL),(10,11,7,'PRESENT',0,NULL),(11,12,7,'PRESENT',0,NULL),(12,13,7,'ABSENT',1,'Certificat mÃ©dical validÃ© par la scolaritÃ©'),(13,11,8,'PRESENT',0,NULL),(14,12,8,'PRESENT',0,NULL),(15,13,8,'PRESENT',0,NULL),(16,11,9,'PRESENT',0,NULL),(17,12,9,'PRESENT',0,NULL),(18,13,9,'PRESENT',0,NULL),(19,11,10,'PRESENT',0,NULL),(20,12,10,'PRESENT',0,NULL),(21,13,10,'PRESENT',0,NULL),(22,11,11,'PRESENT',0,NULL),(23,12,11,'PRESENT',0,NULL),(24,13,11,'PRESENT',0,NULL),(25,11,12,'PRESENT',0,NULL),(26,12,12,'PRESENT',0,NULL),(27,13,12,'PRESENT',0,NULL),(28,11,13,'PRESENT',0,NULL),(29,12,13,'PRESENT',0,NULL),(30,13,13,'PRESENT',0,NULL),(31,11,14,'PRESENT',0,NULL),(32,12,14,'PRESENT',0,NULL),(33,13,14,'PRESENT',0,NULL),(34,11,15,'PRESENT',0,NULL),(35,12,15,'PRESENT',0,NULL),(36,13,15,'PRESENT',0,NULL),(37,11,16,'PRESENT',0,NULL),(38,12,16,'PRESENT',0,NULL),(39,13,16,'PRESENT',0,NULL),(40,11,17,'PRESENT',0,NULL),(41,12,17,'PRESENT',0,NULL),(42,13,17,'PRESENT',0,NULL),(43,11,18,'PRESENT',0,NULL),(44,12,18,'PRESENT',0,NULL),(45,13,18,'PRESENT',0,NULL),(46,11,19,'PRESENT',0,NULL),(47,12,19,'PRESENT',0,NULL),(48,13,19,'PRESENT',0,NULL);
 /*!40000 ALTER TABLE `absences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `annonces` (
 
 LOCK TABLES `annonces` WRITE;
 /*!40000 ALTER TABLE `annonces` DISABLE KEYS */;
-INSERT INTO `annonces` VALUES (3,2,'PROG-BACKEND : Consignes du TP Not?? Architecture MVC','Bonjour ?? tous les ??tudiants de Licence INFO-L3.\nLe TP Not?? de programmation backend portera sur la mise en place d\'un routeur personnalis?? et l\'impl??mentation de formulaires s??curis??s par jeton CSRF.\nLa date limite de d??p??t sur le d??p??t Git est fix??e au vendredi prochain ?? 23h59.','2026-10-27 00:35:04','MODULE',1),(4,7,'DATA-SCI : Donn??es du Projet de Classification Pr??dicitive','Chers ??tudiants, les jeux de donn??es CSV pour les travaux pratiques du mardi en Salle D5 sont d??sormais disponibles dans l\'espace ressources. Merci de pr??parer votre environnement Python/Pandas ?? l\'avance.','2026-10-27 00:35:04','MODULE',5),(5,8,'BDD-ADV : S??ance Mercredi en Salle D5 ??? Mod??lisation NoSQL','Rappel pour la s??ance de travaux dirig??s : nous aborderons l\'indexation B-Tree et la normalisation relationnelle avanc??e (3NF et BCNF). Pr??sence obligatoire.','2026-10-27 00:35:04','MODULE',6),(6,1,'D??partement Math-Info : Calendrier P??dagogique du Semestre S1','La scolarit?? rappelle ?? l\'ensemble des ??tudiants que les feuilles d\'??margement sont d??sormais cl??tur??es chaque semaine. Tout certificat d\'absence doit ??tre d??pos?? dans un d??lai strict de 48 heures ouvrables.','2026-10-27 00:35:04','GLOBALE',NULL);
+INSERT INTO `annonces` VALUES (3,2,'PROG-BACKEND : Consignes du TP NotÃ© Architecture MVC','Bonjour Ã  tous les Ã©tudiants de Licence INFO-L3.\nLe TP NotÃ© de programmation backend portera sur la mise en place d\'un routeur personnalisÃ© et l\'implÃ©mentation de formulaires sÃ©curisÃ©s par jeton CSRF.\nLa date limite de dÃ©pÃ´t sur le dÃ©pÃ´t Git est fixÃ©e au vendredi prochain Ã  23h59.','2026-10-27 00:35:04','MODULE',1),(4,7,'DATA-SCI : DonnÃ©es du Projet de Classification PrÃ©dictive','Chers Ã©tudiants, les jeux de donnÃ©es CSV pour les travaux pratiques du mardi en Salle D5 sont dÃ©sormais disponibles dans l\'espace ressources. Merci de prÃ©parer votre environnement Python/Pandas Ã  l\'avance.','2026-10-27 00:35:04','MODULE',5),(5,8,'BDD-ADV : SÃ©ance Mercredi en Salle D5 â€” ModÃ©lisation NoSQL','Rappel pour la sÃ©ance de travaux dirigÃ©s : nous aborderons l\'indexation B-Tree et la normalisation relationnelle avancÃ©e (3NF et BCNF). PrÃ©sence obligatoire.','2026-10-27 00:35:04','MODULE',6),(6,1,'DÃ©partement Math-Info : Calendrier PÃ©dagogique du Semestre S1','La scolaritÃ© rappelle Ã  l\'ensemble des Ã©tudiants que les feuilles d\'Ã©margement sont dÃ©sormais clÃ´turÃ©es chaque semaine. Tout certificat d\'absence doit Ãªtre dÃ©posÃ© dans un dÃ©lai strict de 48 heures ouvrables.','2026-10-27 00:35:04','GLOBALE',NULL);
 /*!40000 ALTER TABLE `annonces` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +111,7 @@ CREATE TABLE `enseignants` (
 
 LOCK TABLES `enseignants` WRITE;
 /*!40000 ALTER TABLE `enseignants` DISABLE KEYS */;
-INSERT INTO `enseignants` VALUES (2,'ENS-2026-001','Programmation Backend & Architecture Logicielle'),(4,'ENS-2026-002','Syst??mes Distribu??s & Cloud'),(6,'ENS-2026-003','Comp??tences Num??riques & TICE'),(7,'ENS-2026-004','Sciences des Donn??es & Analyse Pr??dictive'),(8,'ENS-2026-005','Bases de Donn??es Avanc??es & NoSQL'),(9,'ENS-2026-006','R??seaux Informatiques & T??l??communications'),(10,'ENS-2026-007','Java & Interfaces Homme-Machine');
+INSERT INTO `enseignants` VALUES (2,'ENS-2026-001','Programmation Backend & Architecture Logicielle'),(4,'ENS-2026-002','SystÃ¨mes DistribuÃ©s & Cloud'),(6,'ENS-2026-003','CompÃ©tences NumÃ©riques & TICE'),(7,'ENS-2026-004','Sciences des DonnÃ©es & Analyse PrÃ©dictive'),(8,'ENS-2026-005','Bases de DonnÃ©es AvancÃ©es & NoSQL'),(9,'ENS-2026-006','RÃ©seaux Informatiques & TÃ©lÃ©communications'),(10,'ENS-2026-007','Java & Interfaces Homme-Machine');
 /*!40000 ALTER TABLE `enseignants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +165,7 @@ CREATE TABLE `filieres` (
 
 LOCK TABLES `filieres` WRITE;
 /*!40000 ALTER TABLE `filieres` DISABLE KEYS */;
-INSERT INTO `filieres` VALUES (1,'INFO-L3','Licence Informatique et Ing??nierie des Syst??mes','Formation approfondie en d??veloppement logiciel, syst??mes et sciences de donn??es.'),(3,'INFO-M1','Master Ing??nierie Logicielle & Syst??mes','Cycle sup??rieur ax?? sur le cloud computing et les architectures distribu??es.');
+INSERT INTO `filieres` VALUES (1,'INFO-L3','Licence Informatique et IngÃ©nierie des SystÃ¨mes','Formation approfondie en dÃ©veloppement logiciel, systÃ¨mes et sciences de donnÃ©es.'),(3,'INFO-M1','Master IngÃ©nierie Logicielle & SystÃ¨mes','Cycle supÃ©rieur axÃ© sur le cloud computing et les architectures distribuÃ©es.');
 /*!40000 ALTER TABLE `filieres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -374,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-27 18:23:25
+-- Dump completed on 2026-10-27 18:41:53

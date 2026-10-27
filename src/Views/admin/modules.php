@@ -165,13 +165,12 @@ use App\Utils\Icon;
       <div class="form-group">
         <label for="idFiliere" class="form-label">Filière de Rattachement</label>
         <select id="idFiliere" name="idFiliere" class="form-control" required>
-            <?php foreach ($filieres as $f): ?>
-              <option value="<?= $f['idFiliere'] ?>">
-                <?= htmlspecialchars($f['code']) ?> — <?= htmlspecialchars($f['intitule']) ?>
-              </option>
-            <?php endforeach; ?>
-          </select>
-        </div>
+          <?php foreach ($filieres as $f): ?>
+            <option value="<?= $f['idFiliere'] ?>">
+              <?= htmlspecialchars($f['code']) ?> — <?= htmlspecialchars($f['intitule']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
       </div>
 
       <div class="form-group">
@@ -236,13 +235,12 @@ use App\Utils\Icon;
       <div class="form-group">
         <label for="edit_filiereId" class="form-label">Filière</label>
         <select id="edit_filiereId" name="idFiliere" class="form-control" required>
-            <?php foreach ($filieres as $f): ?>
-              <option value="<?= $f['idFiliere'] ?>">
-                <?= htmlspecialchars($f['code']) ?> — <?= htmlspecialchars($f['intitule']) ?>
-              </option>
-            <?php endforeach; ?>
-          </select>
-        </div>
+          <?php foreach ($filieres as $f): ?>
+            <option value="<?= $f['idFiliere'] ?>">
+              <?= htmlspecialchars($f['code']) ?> — <?= htmlspecialchars($f['intitule']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
       </div>
 
       <div class="form-group">
