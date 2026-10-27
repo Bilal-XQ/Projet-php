@@ -54,7 +54,6 @@ class Seance extends Model {
                 s.heureFin,
                 s.typeSeance,
                 COUNT(CASE WHEN a.statut = 'ABSENT' THEN 1 END) AS total_absents,
-                COUNT(CASE WHEN a.statut = 'RETARD' THEN 1 END) AS total_retards,
                 COUNT(CASE WHEN a.statut = 'PRESENT' THEN 1 END) AS total_presents
             FROM seances s
             LEFT JOIN absences a ON s.idSeance = a.idSeance

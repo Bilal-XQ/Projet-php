@@ -33,7 +33,6 @@ use App\Utils\Icon;
     <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
       <span class="badge badge-success"><?= Icon::get('check', 12) ?> Présent (En classe)</span>
       <span class="badge badge-destructive"><?= Icon::get('x', 12) ?> Absent (Non présent)</span>
-      <span class="badge badge-warning"><?= Icon::get('clock', 12) ?> Retard (Post-appel)</span>
       <button type="button" id="markAllPresentBtn" class="btn btn-outline btn-sm" style="margin-left: 0.5rem;">
         <?= Icon::get('check-check', 14) ?>
         <span>Marquer Tous Présents</span>
@@ -108,11 +107,6 @@ use App\Utils\Icon;
                       <?= Icon::get('x', 12) ?>
                       <span>Absent</span>
                     </label>
-                    <label class="btn btn-sm <?= $statut === 'RETARD' ? 'btn-warning' : 'btn-outline' ?>" style="cursor: pointer; padding: 0.25rem 0.65rem;">
-                      <input type="radio" name="absences[<?= $id ?>][statut]" value="RETARD" <?= $statut === 'RETARD' ? 'checked' : '' ?> style="display: none;" onchange="updateRadioSelection(this)">
-                      <?= Icon::get('clock', 12) ?>
-                      <span>Retard</span>
-                    </label>
                   </div>
                 </td>
                 <td style="text-align: center;">
@@ -144,8 +138,6 @@ use App\Utils\Icon;
       currentLabel.classList.add('btn-primary');
     } else if (radio.value === 'ABSENT') {
       currentLabel.classList.add('btn-destructive');
-    } else if (radio.value === 'RETARD') {
-      currentLabel.classList.add('btn-warning');
     }
   }
 

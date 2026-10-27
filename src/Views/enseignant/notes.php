@@ -49,7 +49,7 @@ use App\Utils\Icon;
       </div>
       <button type="submit" class="btn btn-primary">
         <?= Icon::get('check', 16) ?>
-        <span>Enregistrer & Auditer les Notes</span>
+        <span>Enregistrer</span>
       </button>
     </div>
 

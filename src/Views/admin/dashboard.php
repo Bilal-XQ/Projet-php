@@ -73,7 +73,7 @@ $tauxAssiduite = number_format((float)($attendanceStats['tauxPresence'] ?? 100.0
         <?= $tauxAssiduite ?> %
       </div>
       <div class="stat-meta">
-        <?= (int)($attendanceStats['absents'] ?? 0) ?> absence(s) • <?= (int)($attendanceStats['retards'] ?? 0) ?> retard(s)
+        <?= (int)($attendanceStats['absents'] ?? 0) ?> absence(s) (<?= (int)($attendanceStats['absentsJustifies'] ?? 0) ?> justifiée(s))
       </div>
     </div>
   </div>
@@ -108,7 +108,7 @@ $tauxAssiduite = number_format((float)($attendanceStats['tauxPresence'] ?? 100.0
             <span>Bilan Global de l'Assiduité aux Séances</span>
           </span>
           <span class="card-desc" style="display: block; margin-top: 0.25rem;">
-            Ventilation des présences, retards et absences justifiées / non justifiées
+            Ventilation des présences et des absences justifiées / non justifiées
           </span>
         </div>
         <span class="badge badge-neutral" style="font-family: ui-monospace, monospace;"><?= (int)($attendanceStats['totalEnregistrements'] ?? 0) ?> émargements</span>
@@ -290,19 +290,17 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(attCtx, {
       type: 'doughnut',
       data: {
-        labels: ['Présents', 'Absents Non Justifiés', 'Absents Justifiés', 'Retards'],
+        labels: ['Présents', 'Absents Non Justifiés', 'Absents Justifiés'],
         datasets: [{
           data: [
             <?= (int)($attendanceStats['presents'] ?? 0) ?>,
             <?= (int)($attendanceStats['absentsNonJustifies'] ?? 0) ?>,
-            <?= (int)($attendanceStats['absentsJustifies'] ?? 0) ?>,
-            <?= (int)($attendanceStats['retards'] ?? 0) ?>
+            <?= (int)($attendanceStats['absentsJustifies'] ?? 0) ?>
           ],
           backgroundColor: [
             '#10b981',
             '#ef4444',
-            '#f59e0b',
-            '#6366f1'
+            '#f59e0b'
           ],
           borderWidth: 0
         }]

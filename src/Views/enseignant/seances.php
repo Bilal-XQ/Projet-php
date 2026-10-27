@@ -84,9 +84,6 @@ use App\Utils\Icon;
                 <div style="display: flex; gap: 0.4rem; font-size: 0.75rem;">
                   <span class="badge badge-success" title="Présents"><?= (int)$s['total_presents'] ?> Présents</span>
                   <span class="badge badge-destructive" title="Absents"><?= (int)$s['total_absents'] ?> Absents</span>
-                  <?php if ((int)$s['total_retards'] > 0): ?>
-                    <span class="badge badge-warning" title="Retards"><?= (int)$s['total_retards'] ?> Retards</span>
-                  <?php endif; ?>
                 </div>
               </td>
               <td style="text-align: right;">

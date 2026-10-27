@@ -9,7 +9,7 @@ use PDO;
  * Modèle Absence — Gestion des présences, retards et justifications
  */
 class Absence extends Model {
-    public const VALID_STATUTS = ['PRESENT', 'ABSENT', 'RETARD'];
+    public const VALID_STATUTS = ['PRESENT', 'ABSENT'];
 
     /**
      * Enregistre ou met à jour l'émargement d'un étudiant pour une séance.
@@ -22,7 +22,7 @@ class Absence extends Model {
         ?string $motif = null
     ): int {
         if (!in_array($statut, self::VALID_STATUTS, true)) {
-            throw new \InvalidArgumentException("Statut d'assiduité invalide. Permis : PRESENT, ABSENT, RETARD.");
+            throw new \InvalidArgumentException("Statut d'assiduité invalide. Permis : PRESENT, ABSENT.");
         }
 
         $db = self::getDb();
@@ -105,8 +105,7 @@ class Absence extends Model {
                 COUNT(DISTINCT s.idSeance) AS total_seances,
                 COUNT(CASE WHEN a.statut = 'ABSENT' THEN 1 END) AS total_absences,
                 COUNT(CASE WHEN a.statut = 'ABSENT' AND a.justifiee = 0 THEN 1 END) AS non_justifiees,
-                COUNT(CASE WHEN a.statut = 'ABSENT' AND a.justifiee = 1 THEN 1 END) AS justifiees,
-                COUNT(CASE WHEN a.statut = 'RETARD' THEN 1 END) AS total_retards
+                COUNT(CASE WHEN a.statut = 'ABSENT' AND a.justifiee = 1 THEN 1 END) AS justifiees
             FROM seances s
             LEFT JOIN absences a ON (s.idSeance = a.idSeance AND a.idEtudiant = :idEtudiant)
             WHERE s.idModule = :idModule
@@ -121,7 +120,6 @@ class Absence extends Model {
             'total_absences' => 0,
             'non_justifiees' => 0,
             'justifiees'     => 0,
-            'total_retards'  => 0,
         ];
     }
 
@@ -143,7 +141,6 @@ class Absence extends Model {
                 'total_absences' => 0,
                 'non_justifiees' => 0,
                 'justifiees'     => 0,
-                'total_retards'  => 0,
                 'taux_assiduite' => 100.0,
             ];
         }
@@ -158,13 +155,12 @@ class Absence extends Model {
         $stmtSeances->execute(['idFiliere' => $idFiliere]);
         $totalSeances = (int)$stmtSeances->fetchColumn();
 
-        // 3. Absences et retards enregistrés pour l'étudiant
+        // 3. Absences enregistrées pour l'étudiant
         $stmtAbs = $db->prepare("
             SELECT 
                 COUNT(CASE WHEN a.statut = 'ABSENT' THEN 1 END) AS total_absences,
                 COUNT(CASE WHEN a.statut = 'ABSENT' AND a.justifiee = 0 THEN 1 END) AS non_justifiees,
                 COUNT(CASE WHEN a.statut = 'ABSENT' AND a.justifiee = 1 THEN 1 END) AS justifiees,
-                COUNT(CASE WHEN a.statut = 'RETARD' THEN 1 END) AS total_retards,
                 COUNT(CASE WHEN a.statut = 'PRESENT' THEN 1 END) AS total_presents
             FROM absences a
             WHERE a.idEtudiant = :id
@@ -173,7 +169,6 @@ class Absence extends Model {
         $absStats = $stmtAbs->fetch() ?: [];
 
         $totalAbs = (int)($absStats['total_absences'] ?? 0);
-        $totalRetards = (int)($absStats['total_retards'] ?? 0);
         $totalPresents = max(0, $totalSeances - $totalAbs);
         $taux = $totalSeances > 0 ? round(($totalPresents / $totalSeances) * 100, 1) : 100.0;
 
@@ -183,7 +178,6 @@ class Absence extends Model {
             'total_absences'  => $totalAbs,
             'non_justifiees'  => (int)($absStats['non_justifiees'] ?? 0),
             'justifiees'      => (int)($absStats['justifiees'] ?? 0),
-            'total_retards'   => $totalRetards,
             'taux_assiduite'  => $taux,
         ];
     }
@@ -239,7 +233,7 @@ class Absence extends Model {
             FROM absences a
             JOIN seances s ON a.idSeance = s.idSeance
             JOIN modules m ON s.idModule = m.idModule
-            WHERE a.idEtudiant = :id AND a.statut IN ('ABSENT', 'RETARD')
+            WHERE a.idEtudiant = :id AND a.statut = 'ABSENT'
             ORDER BY s.dateSeance DESC, s.heureDebut DESC
         ";
 
@@ -260,8 +254,7 @@ class Absence extends Model {
                 COUNT(CASE WHEN statut = 'PRESENT' THEN 1 END) AS total_presents,
                 COUNT(CASE WHEN statut = 'ABSENT' THEN 1 END) AS total_absents,
                 COUNT(CASE WHEN statut = 'ABSENT' AND justifiee = 1 THEN 1 END) AS absents_justifies,
-                COUNT(CASE WHEN statut = 'ABSENT' AND justifiee = 0 THEN 1 END) AS absents_non_justifies,
-                COUNT(CASE WHEN statut = 'RETARD' THEN 1 END) AS total_retards
+                COUNT(CASE WHEN statut = 'ABSENT' AND justifiee = 0 THEN 1 END) AS absents_non_justifies
             FROM absences
         ");
         $res = $stmt->fetch() ?: [];
@@ -276,7 +269,6 @@ class Absence extends Model {
             'absents'              => (int)($res['total_absents'] ?? 0),
             'absentsJustifies'     => (int)($res['absents_justifies'] ?? 0),
             'absentsNonJustifies'  => (int)($res['absents_non_justifies'] ?? 0),
-            'retards'              => (int)($res['total_retards'] ?? 0),
             'tauxPresence'         => $tauxPresence,
         ];
     }

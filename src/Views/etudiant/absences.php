@@ -17,7 +17,7 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
   </div>
 
   <!-- KPI Cards Grid -->
-  <div class="grid grid-cols-4" style="margin-bottom: 1.5rem;">
+  <div class="grid grid-cols-3" style="margin-bottom: 1.5rem;">
     <div class="card stat-card">
       <div class="stat-header">
         <span class="stat-label">Assiduité Globale</span>
@@ -51,17 +51,6 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
       <div class="stat-meta">
         <?= $overall['justifiees'] ?> absence(s) justifiée(s)
       </div>
-    </div>
-
-    <div class="card stat-card">
-      <div class="stat-header">
-        <span class="stat-label">Retards Constatés</span>
-        <span class="stat-icon"><?= Icon::get('clock', 16) ?></span>
-      </div>
-      <div class="stat-value" style="font-size: 1.45rem; font-weight: 800; font-family: ui-monospace, monospace; color: var(--color-warning);">
-        <?= $overall['total_retards'] ?>
-      </div>
-      <div class="stat-meta">Arrivée post-émargement</div>
     </div>
   </div>
 
@@ -98,7 +87,6 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
               <th style="min-width: 150px;">Enseignant Responsable</th>
               <th style="min-width: 90px; text-align: center;">Total Séances</th>
               <th style="min-width: 80px; text-align: center;">Absences</th>
-              <th style="min-width: 80px; text-align: center;">Retards</th>
               <th style="min-width: 120px; text-align: right;">Taux d'Assiduité</th>
             </tr>
           </thead>
@@ -125,9 +113,6 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
                 <td style="text-align: center; font-family: ui-monospace, monospace; color: <?= $s['total_absences'] > 0 ? 'var(--color-danger)' : 'var(--text-muted)' ?>;">
                   <?= $s['total_absences'] ?>
                 </td>
-                <td style="text-align: center; font-family: ui-monospace, monospace; color: <?= $s['total_retards'] > 0 ? 'var(--color-warning)' : 'var(--text-muted)' ?>;">
-                  <?= $s['total_retards'] ?>
-                </td>
                 <td style="text-align: right; font-family: ui-monospace, monospace; font-weight: 700; color: <?= $taux >= 80 ? 'var(--color-success)' : ($taux >= 60 ? 'var(--color-warning)' : 'var(--color-danger)') ?>;">
                   <?= number_format($taux, 1) ?> %
                 </td>
@@ -139,13 +124,13 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
     <?php endif; ?>
   </div>
 
-  <!-- Tableau 2 : Journal Détaillé des Absences & Retards -->
+  <!-- Tableau 2 : Journal Détaillé des Absences -->
   <div class="card">
     <div class="card-header">
       <div>
         <span class="card-title">
           <?= Icon::get('clock', 18) ?>
-          <span>Journal Historique des Absences et Retards</span>
+          <span>Journal Historique des Absences</span>
         </span>
         <span class="card-desc" style="display: block; margin-top: 0.25rem;">
           Liste chronologique de tous les incidents d'émargement enregistrés
@@ -156,7 +141,7 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
     <?php if (empty($detailed)): ?>
       <div style="padding: 2.5rem; text-align: center; color: var(--color-success); font-size: 0.875rem;">
         <div style="margin-bottom: 0.5rem;"><?= Icon::get('check', 32) ?></div>
-        Félicitations ! Vous n'avez aucune absence ni retard enregistré à ce jour.
+        Félicitations ! Vous n'avez aucune absence enregistrée à ce jour.
       </div>
     <?php else: ?>
       <div class="table-scroll-hint">
@@ -171,7 +156,7 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
               <th style="min-width: 110px;">Horaires</th>
               <th style="min-width: 80px;">Type</th>
               <th style="min-width: 100px;">Module</th>
-              <th style="min-width: 120px; text-align: center;">Nature Incident</th>
+              <th style="min-width: 120px; text-align: center;">Statut</th>
               <th style="min-width: 110px; text-align: center;">Justification</th>
               <th style="min-width: 150px;">Motif Déclaré</th>
             </tr>
@@ -193,11 +178,7 @@ $tauxGlobal = number_format((float)$overall['taux_assiduite'], 1);
                   <span style="font-size: 0.8125rem; color: var(--text-muted); margin-left: 0.25rem;"><?= htmlspecialchars($d['module_intitule']) ?></span>
                 </td>
                 <td style="text-align: center;">
-                  <?php if ($d['statut'] === 'ABSENT'): ?>
-                    <span class="badge badge-destructive">Absent</span>
-                  <?php else: ?>
-                    <span class="badge badge-warning">Retard</span>
-                  <?php endif; ?>
+                  <span class="badge badge-destructive">Absent</span>
                 </td>
                 <td style="text-align: center;">
                   <?php if ((int)$d['justifiee'] === 1): ?>

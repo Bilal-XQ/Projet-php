@@ -84,7 +84,7 @@ $tauxAssiduite = number_format((float)$attendance['taux_assiduite'], 1);
       </div>
     </div>
 
-    <!-- Absences & Retards -->
+    <!-- Absences Enregistrées -->
     <div class="card stat-card">
       <div class="stat-header">
         <span class="stat-label">Absences Enregistrées</span>
@@ -94,7 +94,7 @@ $tauxAssiduite = number_format((float)$attendance['taux_assiduite'], 1);
         <?= $attendance['total_absences'] ?>
       </div>
       <div class="stat-meta">
-        <span style="color: var(--color-danger);"><?= $attendance['non_justifiees'] ?> non justifiée(s)</span> • <?= $attendance['total_retards'] ?> retard(s)
+        <span style="color: var(--color-danger);"><?= $attendance['non_justifiees'] ?> non justifiée(s)</span> • <?= $attendance['justifiees'] ?> justifiée(s)
       </div>
     </div>
   </div>

@@ -67,7 +67,7 @@ use App\Utils\Icon;
         </thead>
         <tbody>
           <?php foreach ($etudiants as $etu): 
-            $abs = $etu['absences_summary'] ?? ['total_absences' => 0, 'non_justifiees' => 0, 'justifiees' => 0, 'total_retards' => 0];
+            $abs = $etu['absences_summary'] ?? ['total_absences' => 0, 'non_justifiees' => 0, 'justifiees' => 0];
           ?>
             <tr>
               <td>
@@ -98,7 +98,7 @@ use App\Utils\Icon;
               </td>
               <td>
                 <div style="display: flex; gap: 0.35rem; font-size: 0.75rem;">
-                  <?php if ((int)$abs['total_absences'] === 0 && (int)$abs['total_retards'] === 0): ?>
+                  <?php if ((int)$abs['total_absences'] === 0): ?>
                     <span class="badge badge-success">Assidu (0 abs)</span>
                   <?php else: ?>
                     <?php if ((int)$abs['non_justifiees'] > 0): ?>
@@ -109,11 +109,6 @@ use App\Utils\Icon;
                     <?php if ((int)$abs['justifiees'] > 0): ?>
                       <span class="badge badge-neutral" title="Absences justifiées">
                         <?= (int)$abs['justifiees'] ?> justifiée(s)
-                      </span>
-                    <?php endif; ?>
-                    <?php if ((int)$abs['total_retards'] > 0): ?>
-                      <span class="badge badge-warning" title="Retards">
-                        <?= (int)$abs['total_retards'] ?> retard(s)
                       </span>
                     <?php endif; ?>
                   <?php endif; ?>

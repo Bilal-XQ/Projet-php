@@ -51,7 +51,7 @@ foreach ($modules as $m) {
   </div>
 
   <!-- 2. Grille des Indicateurs Clés (KPI Stats) -->
-  <div class="grid grid-cols-4" style="margin-bottom: 2rem;">
+  <div class="grid grid-cols-3" style="margin-bottom: 2rem;">
     <div class="card stat-card">
       <div class="stat-header">
         <span class="stat-label">Modules Attribués</span>
@@ -77,15 +77,6 @@ foreach ($modules as $m) {
       </div>
       <div class="stat-value"><?= count($recentSeances) ?></div>
       <div class="stat-meta">Séances enregistrées au planning</div>
-    </div>
-
-    <div class="card stat-card">
-      <div class="stat-header">
-        <span class="stat-label">Taux Réussite Moyen</span>
-        <span class="stat-icon"><?= Icon::get('award', 18) ?></span>
-      </div>
-      <div class="stat-value" style="color: var(--success);"><?= $primaryPassRate ?> %</div>
-      <div class="stat-meta">Moyenne module : <?= $primaryAvgFinal ?>/20</div>
     </div>
   </div>
 
