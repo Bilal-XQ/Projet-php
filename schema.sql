@@ -221,7 +221,7 @@ CREATE TABLE `journal_audit_notes` (
   KEY `idUtilisateur` (`idUtilisateur`),
   CONSTRAINT `journal_audit_notes_ibfk_1` FOREIGN KEY (`idNote`) REFERENCES `notes` (`idNote`) ON DELETE CASCADE,
   CONSTRAINT `journal_audit_notes_ibfk_2` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateurs` (`idUtilisateur`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,6 +230,7 @@ CREATE TABLE `journal_audit_notes` (
 
 LOCK TABLES `journal_audit_notes` WRITE;
 /*!40000 ALTER TABLE `journal_audit_notes` DISABLE KEYS */;
+INSERT INTO `journal_audit_notes` VALUES (6,4,2,'CREATION',NULL,17.5,'2026-10-15 10:30:00'),(7,5,2,'CREATION',NULL,15.25,'2026-10-15 10:32:00'),(8,6,2,'CREATION',NULL,13,'2026-10-15 10:35:00'),(9,7,2,'CREATION',NULL,10.5,'2026-10-15 10:37:00'),(10,7,2,'MODIFICATION',10.5,11.5,'2026-10-18 14:20:00'),(11,8,2,'CREATION',NULL,9,'2026-10-15 10:40:00'),(12,9,4,'CREATION',NULL,16,'2026-10-16 11:15:00'),(13,10,4,'CREATION',NULL,14.5,'2026-10-16 11:18:00'),(14,11,4,'CREATION',NULL,12,'2026-10-16 11:20:00'),(15,11,4,'MODIFICATION',12,13.5,'2026-10-20 09:45:00'),(16,12,4,'CREATION',NULL,15,'2026-10-16 11:25:00'),(17,13,6,'CREATION',NULL,18,'2026-10-17 16:00:00');
 /*!40000 ALTER TABLE `journal_audit_notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +329,7 @@ CREATE TABLE `reclamations` (
   KEY `fk_reclamation_repondeur` (`idRepondeur`),
   CONSTRAINT `fk_reclamation_etudiant` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiants` (`idUtilisateur`) ON DELETE CASCADE,
   CONSTRAINT `fk_reclamation_repondeur` FOREIGN KEY (`idRepondeur`) REFERENCES `utilisateurs` (`idUtilisateur`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,6 +338,7 @@ CREATE TABLE `reclamations` (
 
 LOCK TABLES `reclamations` WRITE;
 /*!40000 ALTER TABLE `reclamations` DISABLE KEYS */;
+INSERT INTO `reclamations` VALUES (1,3,'Contestation de note','Question sur la note de TP Web','Bonjour Monsieur, je souhaiterais une revision de mon rendu du TP2.','EN_ATTENTE',NULL,NULL,'2026-11-02 22:10:06',NULL),(2,3,'Contestation de note','Question sur la note de TP Web','Bonjour Monsieur, je souhaiterais une revision de mon rendu du TP2.','EN_ATTENTE',NULL,NULL,'2026-11-02 22:10:15',NULL),(3,3,'Contestation de note','Question sur la note de TP Web','Bonjour Monsieur, je souhaiterais une revision de mon rendu du TP2.','RESOLUE','Copie verifiee en detail : 1 point supplementaire accorde.',2,'2026-11-02 22:10:31','2026-11-02 22:10:32'),(4,11,'Demande de document académique / attestation','Test','test','RESOLUE','Test',2,'2026-11-02 23:03:10','2026-11-02 23:10:35');
 /*!40000 ALTER TABLE `reclamations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,4 +411,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-02 22:05:43
+-- Dump completed on 2026-11-02 23:13:19
