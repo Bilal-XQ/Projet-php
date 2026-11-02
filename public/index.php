@@ -4,11 +4,17 @@ declare(strict_types=1);
 /**
  * Front Controller & Dispatcher
  * Application de Gestion Pédagogique — Département Math-Info
- * 100% PHP 8.3 Natif, Architecture MVC, Zéro Dépendance Tierce
+ * Architecture MVC, Composer Autoloader PSR-4 & Dotenv
  */
 
-// 1. Initialisation de l'Autoloader PSR-4 & Configuration
-require_once __DIR__ . '/../config/autoload.php';
+// 1. Initialisation de l'Autoloader Composer PSR-4 & Environnement .env
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Chargement des variables d'environnement via la bibliothèque vlucas/phpdotenv
+if (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->safeLoad();
+}
 
 use App\Utils\Auth;
 use App\Utils\Router;

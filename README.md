@@ -34,8 +34,13 @@ docker compose up -d
 *(ou `docker-compose up -d` selon votre version de Docker)*
 
 Docker va automatiquement :
-1. Télécharger et configurer l'environnement PHP 8.3 & Nginx.
-2. Initialiser la base de données MySQL avec les tables et les données de test complètes (modules, professeurs, Bilal, notes, assiduité...).
+1. Télécharger et configurer l'environnement PHP 8.3 avec **Composer**, Nginx et MySQL 8.4.
+2. Initialiser la base de données MySQL avec les tables et les données de test complètes.
+
+Pour installer/mettre à jour les dépendances Composer dans le conteneur si besoin :
+```bash
+docker compose exec app composer install
+```
 
 > 💡 **Si vous aviez déjà lancé le projet auparavant :**
 > Docker conserve l'ancienne base dans son volume. Pour recharger la toute nouvelle base de données complète, exécutez simplement :

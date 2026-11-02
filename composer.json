@@ -3,11 +3,16 @@
   "description": "Application universitaire de gestion pédagogique",
   "type": "project",
   "require": {
-    "php": ">=8.3"
+    "php": ">=8.3",
+    "vlucas/phpdotenv": "^5.8",
+    "dompdf/dompdf": "^3.1"
   },
   "autoload": {
     "psr-4": {
       "App\\": "src/"
-    }
+    },
+    "files": [
+      "config/database.php"
+    ]
   }
 }
