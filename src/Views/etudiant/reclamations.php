@@ -124,8 +124,8 @@ use App\Utils\Icon;
       Vous n'avez déposé aucune réclamation pour le moment.
     </div>
   <?php else: ?>
-    <div class="table-responsive">
-      <table class="data-table">
+    <div class="table-wrapper">
+      <table>
         <thead>
           <tr>
             <th>Date</th>
@@ -142,16 +142,16 @@ use App\Utils\Icon;
               <td style="font-family: ui-monospace, monospace; font-size: 0.8125rem; color: var(--text-muted); white-space: nowrap;">
                 <?= date('d/m/Y H:i', strtotime($rec['dateCreation'])) ?>
               </td>
-              <td>
-                <span style="font-weight: 600; color: var(--text-main); display: block;">
+              <td style="max-width: 280px;">
+                <span style="font-weight: 600; color: var(--text-main); display: block; word-break: break-word;">
                   <?= htmlspecialchars($rec['objet']) ?>
                 </span>
-                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; word-break: break-word;">
                   <?= htmlspecialchars($rec['message']) ?>
                 </span>
               </td>
               <td>
-                <span class="badge badge-neutral" style="font-size: 0.75rem;">
+                <span class="badge badge-neutral" style="font-size: 0.75rem; white-space: normal; line-height: 1.3;">
                   <?= htmlspecialchars($rec['motif']) ?>
                 </span>
               </td>
@@ -166,7 +166,7 @@ use App\Utils\Icon;
                   <span class="badge badge-danger">Rejetée</span>
                 <?php endif; ?>
               </td>
-              <td>
+              <td style="max-width: 220px;">
                 <?php if (!empty($rec['reponse'])): ?>
                   <span style="font-size: 0.8125rem; color: var(--color-success); font-weight: 500;">
                     <?= Icon::get('check', 13) ?> Répondu
@@ -178,7 +178,7 @@ use App\Utils\Icon;
                   <span style="font-size: 0.8125rem; color: var(--text-muted);">En cours d'examen</span>
                 <?php endif; ?>
               </td>
-              <td style="text-align: right;">
+              <td style="text-align: right; white-space: nowrap;">
                 <button type="button" 
                         class="btn btn-outline btn-sm"
                         onclick="showReclamationDetails(<?= htmlspecialchars(json_encode($rec), ENT_QUOTES, 'UTF-8') ?>)">

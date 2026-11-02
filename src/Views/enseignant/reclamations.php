@@ -129,8 +129,8 @@ use App\Utils\Icon;
       Aucune réclamation trouvée pour ce filtre.
     </div>
   <?php else: ?>
-    <div class="table-responsive">
-      <table class="data-table">
+    <div class="table-wrapper">
+      <table>
         <thead>
           <tr>
             <th>Date</th>
@@ -161,12 +161,14 @@ use App\Utils\Icon;
                   <?= htmlspecialchars($rec['filiere_code'] ?? 'Tronc Commun') ?>
                 </span>
               </td>
-              <td>
-                <div style="font-weight: 600; color: var(--text-main);">
+              <td style="max-width: 280px;">
+                <div style="font-weight: 600; color: var(--text-main); word-break: break-word;">
                   <?= htmlspecialchars($rec['objet']) ?>
                 </div>
                 <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
-                  Motif : <span class="badge badge-neutral" style="font-size: 0.7rem;"><?= htmlspecialchars($rec['motif']) ?></span>
+                  <span class="badge badge-neutral" style="font-size: 0.7rem; white-space: normal; text-align: left; line-height: 1.3;">
+                    <?= htmlspecialchars($rec['motif']) ?>
+                  </span>
                 </div>
               </td>
               <td>
@@ -180,17 +182,17 @@ use App\Utils\Icon;
                   <span class="badge badge-danger">Rejetée</span>
                 <?php endif; ?>
               </td>
-              <td>
+              <td style="max-width: 200px;">
                 <?php if (!empty($rec['reponse'])): ?>
                   <span style="font-size: 0.75rem; color: var(--color-success); font-weight: 600;">Traité</span>
-                  <div style="font-size: 0.75rem; color: var(--text-muted); max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  <div style="font-size: 0.75rem; color: var(--text-muted); word-break: break-word;">
                     <?= htmlspecialchars($rec['reponse']) ?>
                   </div>
                 <?php else: ?>
                   <span style="font-size: 0.75rem; color: var(--color-warning);">À traiter</span>
                 <?php endif; ?>
               </td>
-              <td style="text-align: right;">
+              <td style="text-align: right; white-space: nowrap;">
                 <button type="button" 
                         class="btn btn-outline btn-sm"
                         onclick="openTraiterModalEnseignant(<?= htmlspecialchars(json_encode($rec), ENT_QUOTES, 'UTF-8') ?>)">
