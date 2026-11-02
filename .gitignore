@@ -1,6 +1,5 @@
 # Vendor (Composer dependencies)
 vendor/
-composer.lock
 
 # IDE & Editors
 .idea/
