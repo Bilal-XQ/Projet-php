@@ -75,6 +75,10 @@ unset($_SESSION['flash_error']);
           <span class="nav-icon"><?= Icon::get('shield-check', 18) ?></span>
           <span class="nav-label">Journal d'Audit</span>
         </a>
+        <a href="/admin/reclamations" class="nav-item <?= $activeNav === 'reclamations' ? 'active' : '' ?>">
+          <span class="nav-icon"><?= Icon::get('message-square', 18) ?></span>
+          <span class="nav-label">Réclamations</span>
+        </a>
 
       <?php elseif ($currentRole === 'ENSEIGNANT'): ?>
         <a href="/enseignant/dashboard" class="nav-item <?= $activeNav === 'dashboard' ? 'active' : '' ?>">
@@ -93,6 +97,10 @@ unset($_SESSION['flash_error']);
           <span class="nav-icon"><?= Icon::get('clock', 18) ?></span>
           <span class="nav-label">Feuilles d'Assiduité</span>
         </a>
+        <a href="/enseignant/reclamations" class="nav-item <?= $activeNav === 'reclamations' ? 'active' : '' ?>">
+          <span class="nav-icon"><?= Icon::get('message-square', 18) ?></span>
+          <span class="nav-label">Réclamations</span>
+        </a>
         <a href="/enseignant/annonces" class="nav-item <?= $activeNav === 'annonces' ? 'active' : '' ?>">
           <span class="nav-icon"><?= Icon::get('megaphone', 18) ?></span>
           <span class="nav-label">Annonces</span>
@@ -110,6 +118,10 @@ unset($_SESSION['flash_error']);
         <a href="/etudiant/absences" class="nav-item <?= $activeNav === 'absences' ? 'active' : '' ?>">
           <span class="nav-icon"><?= Icon::get('clock', 18) ?></span>
           <span class="nav-label">Bilan d'Assiduité</span>
+        </a>
+        <a href="/etudiant/reclamations" class="nav-item <?= $activeNav === 'reclamations' ? 'active' : '' ?>">
+          <span class="nav-icon"><?= Icon::get('message-square', 18) ?></span>
+          <span class="nav-label">Mes Réclamations</span>
         </a>
         <a href="/etudiant/annonces" class="nav-item <?= $activeNav === 'annonces' ? 'active' : '' ?>">
           <span class="nav-icon"><?= Icon::get('megaphone', 18) ?></span>

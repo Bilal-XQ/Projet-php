@@ -8,6 +8,7 @@ use App\Utils\PdfGenerator;
 use App\Models\Model;
 use App\Models\Note;
 use App\Models\Absence;
+use App\Models\Reclamation;
 use PDO;
 
 /**
@@ -189,5 +190,53 @@ class EtudiantController extends Controller {
         $filename = "Releve_Notes_" . preg_replace('/[^a-zA-Z0-9_-]/', '', $user->getCne() ?: 'ETUDIANT') . ".pdf";
 
         PdfGenerator::stream($pdfContent, $filename, false);
+    }
+
+    /**
+     * Espace Réclamations Étudiant (Consultation & Historique).
+     */
+    public function reclamations(): void {
+        $user = Auth::user();
+        $reclamations = Reclamation::getByEtudiant($user->getId());
+
+        $this->render('etudiant.reclamations', [
+            'title'        => 'Mes Réclamations',
+            'user'         => $user,
+            'reclamations' => $reclamations,
+            'csrfToken'    => Auth::csrfToken(),
+            'activeNav'    => 'reclamations',
+        ]);
+    }
+
+    /**
+     * Dépôt d'une nouvelle réclamation.
+     */
+    public function createReclamation(): void {
+        $user = Auth::user();
+
+        $token = $_POST['_csrf_token'] ?? null;
+        if (!Auth::validateCsrf($token)) {
+            $_SESSION['flash_error'] = "Jeton de sécurité CSRF expiré ou invalide. Veuillez réessayer.";
+            $this->redirect('/etudiant/reclamations');
+            return;
+        }
+
+        $motifType = trim((string)($_POST['motif_type'] ?? ''));
+        $motifCustom = trim((string)($_POST['motif_custom'] ?? ''));
+        $objet = trim((string)($_POST['objet'] ?? ''));
+        $message = trim((string)($_POST['message'] ?? ''));
+
+        $motif = ($motifType === 'Autre' && $motifCustom !== '') ? $motifCustom : $motifType;
+
+        if ($motif === '' || $objet === '' || $message === '') {
+            $_SESSION['flash_error'] = "Veuillez renseigner le motif, l'objet et les détails de votre réclamation.";
+            $this->redirect('/etudiant/reclamations');
+            return;
+        }
+
+        Reclamation::create($user->getId(), $motif, $objet, $message);
+
+        $_SESSION['flash_success'] = "Votre réclamation a été transmise avec succès au département.";
+        $this->redirect('/etudiant/reclamations');
     }
 }

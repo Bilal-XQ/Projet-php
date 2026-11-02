@@ -12,6 +12,7 @@ use App\Models\Annonce;
 use App\Models\JournalAudit;
 use App\Models\Note;
 use App\Models\Absence;
+use App\Models\Reclamation;
 use PDO;
 
 /**
@@ -732,5 +733,57 @@ class AdminController extends Controller {
             'currentFilter' => $filter,
             'activeNav'     => 'audit',
         ]);
+    }
+
+    // =========================================================================
+    // 7. GESTION DES RÉCLAMATIONS
+    // =========================================================================
+
+    public function reclamations(): void {
+        $statut = $_GET['statut'] ?? null;
+        if (!in_array($statut, ['EN_ATTENTE', 'EN_COURS', 'RESOLUE', 'REJETEE'], true)) {
+            $statut = null;
+        }
+
+        $reclamations = Reclamation::getAllWithDetails($statut);
+        $stats = Reclamation::getStats();
+
+        $this->render('admin.reclamations', [
+            'title'        => 'Gestion des Réclamations',
+            'reclamations' => $reclamations,
+            'stats'        => $stats,
+            'statutActif'  => $statut,
+            'csrfToken'    => Auth::csrfToken(),
+            'activeNav'    => 'reclamations',
+        ]);
+    }
+
+    public function repondreReclamation(): void {
+        $user = Auth::user();
+
+        if (!Auth::validateCsrf($_POST['_csrf_token'] ?? null)) {
+            $_SESSION['flash_error'] = "Jeton de sécurité invalide.";
+            $this->redirect('/admin/reclamations');
+            return;
+        }
+
+        $idReclamation = (int)($_POST['idReclamation'] ?? 0);
+        $statut = (string)($_POST['statut'] ?? 'RESOLUE');
+        $reponse = trim((string)($_POST['reponse'] ?? ''));
+
+        if (!in_array($statut, ['EN_COURS', 'RESOLUE', 'REJETEE'], true)) {
+            $statut = 'RESOLUE';
+        }
+
+        if ($idReclamation <= 0 || $reponse === '') {
+            $_SESSION['flash_error'] = "Veuillez saisir une réponse pour traiter cette réclamation.";
+            $this->redirect('/admin/reclamations');
+            return;
+        }
+
+        Reclamation::traiter($idReclamation, $statut, $reponse, $user->getId());
+
+        $_SESSION['flash_success'] = "La réclamation a été mise à jour avec succès.";
+        $this->redirect('/admin/reclamations');
     }
 }

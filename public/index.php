@@ -85,6 +85,10 @@ $router->post('/admin/annonces/delete', [AdminController::class, 'deleteAnnonce'
 // Journal d'Audit
 $router->get('/admin/audit', [AdminController::class, 'audit']);
 
+// Réclamations Admin
+$router->get('/admin/reclamations', [AdminController::class, 'reclamations']);
+$router->post('/admin/reclamations/repondre', [AdminController::class, 'repondreReclamation']);
+
 // =============================================================================
 // Routes Protégées — Espace Enseignant (Phase 4)
 // =============================================================================
@@ -104,6 +108,8 @@ $router->post('/enseignant/annonces/create', [EnseignantController::class, 'crea
 $router->post('/enseignant/annonces/edit', [EnseignantController::class, 'editAnnonce']);
 $router->post('/enseignant/annonces/delete', [EnseignantController::class, 'deleteAnnonce']);
 $router->get('/enseignant/modules/{id}/pdf', [EnseignantController::class, 'downloadModulePdf']);
+$router->get('/enseignant/reclamations', [EnseignantController::class, 'reclamations']);
+$router->post('/enseignant/reclamations/repondre', [EnseignantController::class, 'repondreReclamation']);
 
 // =============================================================================
 // Routes Protégées — Espace Étudiant (Phase 5)
@@ -113,6 +119,8 @@ $router->get('/etudiant/notes', [EtudiantController::class, 'notes']);
 $router->get('/etudiant/absences', [EtudiantController::class, 'absences']);
 $router->get('/etudiant/annonces', [EtudiantController::class, 'annonces']);
 $router->get('/etudiant/releve/pdf', [EtudiantController::class, 'downloadRelevePdf']);
+$router->get('/etudiant/reclamations', [EtudiantController::class, 'reclamations']);
+$router->post('/etudiant/reclamations/create', [EtudiantController::class, 'createReclamation']);
 
 // 4. Distribution de la requête HTTP
 $router->dispatch();

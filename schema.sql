@@ -306,6 +306,41 @@ INSERT INTO `notes` VALUES (4,11,1,NULL,NULL,17.5,'NORMALE','V','Excellente ma??
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reclamations`
+--
+
+DROP TABLE IF EXISTS `reclamations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reclamations` (
+  `idReclamation` int NOT NULL AUTO_INCREMENT,
+  `idEtudiant` int NOT NULL,
+  `motif` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `objet` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `statut` enum('EN_ATTENTE','EN_COURS','RESOLUE','REJETEE') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'EN_ATTENTE',
+  `reponse` text COLLATE utf8mb4_unicode_ci,
+  `idRepondeur` int DEFAULT NULL,
+  `dateCreation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateReponse` datetime DEFAULT NULL,
+  PRIMARY KEY (`idReclamation`),
+  KEY `fk_reclamation_etudiant` (`idEtudiant`),
+  KEY `fk_reclamation_repondeur` (`idRepondeur`),
+  CONSTRAINT `fk_reclamation_etudiant` FOREIGN KEY (`idEtudiant`) REFERENCES `etudiants` (`idUtilisateur`) ON DELETE CASCADE,
+  CONSTRAINT `fk_reclamation_repondeur` FOREIGN KEY (`idRepondeur`) REFERENCES `utilisateurs` (`idUtilisateur`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reclamations`
+--
+
+LOCK TABLES `reclamations` WRITE;
+/*!40000 ALTER TABLE `reclamations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reclamations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `seances`
 --
 
@@ -374,4 +409,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-27 18:41:53
+-- Dump completed on 2026-11-02 22:05:43

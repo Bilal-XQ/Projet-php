@@ -11,6 +11,7 @@ use App\Models\Note;
 use App\Models\Seance;
 use App\Models\Absence;
 use App\Models\Annonce;
+use App\Models\Reclamation;
 use PDO;
 
 /**
@@ -587,5 +588,62 @@ class EnseignantController extends Controller {
             exit;
         }
         return $module;
+    }
+
+    /**
+     * Liste et gestion des réclamations pour les enseignants.
+     */
+    public function reclamations(): void {
+        $user = Auth::user();
+        $statut = $_GET['statut'] ?? null;
+        if (!in_array($statut, ['EN_ATTENTE', 'EN_COURS', 'RESOLUE', 'REJETEE'], true)) {
+            $statut = null;
+        }
+
+        $reclamations = Reclamation::getAllWithDetails($statut);
+        $stats = Reclamation::getStats();
+
+        $this->render('enseignant.reclamations', [
+            'title'        => 'Réclamations Étudiants',
+            'user'         => $user,
+            'reclamations' => $reclamations,
+            'stats'        => $stats,
+            'statutActif'  => $statut,
+            'csrfToken'    => Auth::csrfToken(),
+            'activeNav'    => 'reclamations',
+        ]);
+    }
+
+    /**
+     * Traiter et répondre à une réclamation par l'enseignant.
+     */
+    public function repondreReclamation(): void {
+        $user = Auth::user();
+
+        $token = $_POST['_csrf_token'] ?? null;
+        if (!Auth::validateCsrf($token)) {
+            $_SESSION['flash_error'] = "Jeton de sécurité CSRF expiré ou invalide. Veuillez réessayer.";
+            $this->redirect('/enseignant/reclamations');
+            return;
+        }
+
+        $idReclamation = (int)($_POST['idReclamation'] ?? 0);
+        $statut = (string)($_POST['statut'] ?? 'RESOLUE');
+        $reponse = trim((string)($_POST['reponse'] ?? ''));
+
+        if (!in_array($statut, ['EN_COURS', 'RESOLUE', 'REJETEE'], true)) {
+            $statut = 'RESOLUE';
+        }
+
+        if ($idReclamation <= 0 || $reponse === '') {
+            $_SESSION['flash_error'] = "Veuillez saisir une réponse pour traiter cette réclamation.";
+            $this->redirect('/enseignant/reclamations');
+            return;
+        }
+
+        Reclamation::traiter($idReclamation, $statut, $reponse, $user->getId());
+
+        $_SESSION['flash_success'] = "La réponse à la réclamation a été enregistrée avec succès.";
+        $this->redirect('/enseignant/reclamations');
     }
 }
