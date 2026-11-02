@@ -71,7 +71,7 @@ use App\Utils\Icon;
               <th style="min-width: 100px;">CNE</th>
               <th style="min-width: 110px; text-align: center;">Note (/20)</th>
               <th style="min-width: 110px; text-align: center;">Statut</th>
-              <th style="min-width: 180px;">Remarque Pédagogique</th>
+              <th style="min-width: 260px;">Remarque Pédagogique</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +82,7 @@ use App\Utils\Icon;
             ?>
               <tr class="grade-row" data-etudiant-id="<?= $id ?>">
                 <td>
-                  <div style="font-weight: 600;"><?= htmlspecialchars($etu['etudiant_prenom'] . ' ' . $etu['etudiant_nom']) ?></div>
+                  <div style="font-weight: 600; color: var(--text-main);"><?= htmlspecialchars($etu['etudiant_prenom'] . ' ' . $etu['etudiant_nom']) ?></div>
                   <div style="font-size: 0.75rem; color: var(--text-muted);"><?= htmlspecialchars($etu['etudiant_email']) ?></div>
                 </td>
                 <td><code><?= htmlspecialchars($etu['etudiant_cne']) ?></code></td>
@@ -96,7 +96,7 @@ use App\Utils\Icon;
                     class="form-control input-note" 
                     value="<?= htmlspecialchars($val) ?>" 
                     placeholder="0.00"
-                    style="font-family: ui-monospace, monospace; font-size: 0.9375rem; font-weight: 700; text-align: center; max-width: 130px; margin: 0 auto;"
+                    style="font-family: ui-monospace, monospace; font-size: 0.9375rem; font-weight: 700; text-align: center; max-width: 110px; margin: 0 auto; padding: 0.45rem 0.5rem;"
                   >
                 </td>
                 <td style="text-align: center;">
@@ -119,7 +119,7 @@ use App\Utils\Icon;
                     class="form-control" 
                     value="<?= htmlspecialchars($etu['remarque'] ?? '') ?>" 
                     placeholder="Observation pédagogique..."
-                    style="font-size: 0.8125rem;"
+                    style="font-size: 0.8125rem; padding: 0.45rem 0.75rem; border-radius: var(--radius-md); background: var(--bg-hover);"
                   >
                 </td>
               </tr>

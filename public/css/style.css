@@ -942,6 +942,17 @@ body.sidebar-collapsed .user-profile-widget {
   color: var(--destructive);
 }
 
+.btn-success {
+  background-color: var(--success);
+  color: #ffffff;
+  border-color: var(--success);
+}
+
+.btn-success:hover {
+  background-color: #059669;
+  border-color: #059669;
+}
+
 /* Tabs */
 .tabs-container {
   display: flex;
