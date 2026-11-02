@@ -10,7 +10,7 @@ use App\Utils\Icon;
     <p class="page-subtitle">Déposez une demande ou contestation et suivez l'état de traitement par le département.</p>
   </div>
   <div class="header-actions">
-    <button type="button" class="btn btn-primary" data-modal-target="#createReclamationModal">
+    <button type="button" class="btn btn-primary" data-modal-open="createReclamationModal">
       <?= Icon::get('plus', 16) ?>
       <span>Nouvelle Réclamation</span>
     </button>
@@ -244,3 +244,4 @@ function showReclamationDetails(rec) {
   modal.classList.add('active');
 }
 </script>
+

@@ -110,10 +110,13 @@
   window.closeModal = closeModal;
 
   document.addEventListener('click', (e) => {
-    const openTrigger = e.target.closest('[data-modal-open]');
+    const openTrigger = e.target.closest('[data-modal-open], [data-modal-target]');
     if (openTrigger) {
       e.preventDefault();
-      const targetId = openTrigger.getAttribute('data-modal-open');
+      let targetId = openTrigger.getAttribute('data-modal-open') || openTrigger.getAttribute('data-modal-target');
+      if (targetId && targetId.startsWith('#')) {
+        targetId = targetId.substring(1);
+      }
       openModal(targetId);
       return;
     }

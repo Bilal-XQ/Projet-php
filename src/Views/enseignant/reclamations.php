@@ -219,3 +219,4 @@ function openTraiterModalEnseignant(rec) {
   modal.classList.add('active');
 }
 </script>
+
