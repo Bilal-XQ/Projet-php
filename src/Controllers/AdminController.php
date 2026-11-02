@@ -37,6 +37,8 @@ class AdminController extends Controller {
             'etudiants'    => (int)$db->query("SELECT COUNT(*) FROM etudiants")->fetchColumn(),
             'filieres'     => (int)$db->query("SELECT COUNT(*) FROM filieres")->fetchColumn(),
             'modules'      => (int)$db->query("SELECT COUNT(*) FROM modules")->fetchColumn(),
+            'inscriptions' => (int)$db->query("SELECT COUNT(*) FROM inscriptions")->fetchColumn(),
+            'reclamations' => (int)$db->query("SELECT COUNT(*) FROM reclamations WHERE statut = 'EN_ATTENTE'")->fetchColumn(),
         ];
 
         // Statistiques académiques et d'assiduité du département
